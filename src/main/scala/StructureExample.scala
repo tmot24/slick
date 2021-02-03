@@ -23,10 +23,11 @@ trait TablesH2 {
     def content = column[String]("content")
 
     def * = (sender, content, id).mapTo[Message]
+//    def * = (sender, content, id).<>(Message.tupled, Message.unapply)
   }
 
   object messages extends TableQuery(new MessageTable(_)) {
-    def messagesFrom(name: String) = this.filter(_.sender === name)
+    def messagesFrom(name: String): Query[MessageTable, Message, Seq] = this.filter(_.sender === name)
 
     val numContent = this.map(_.content).length
   }
