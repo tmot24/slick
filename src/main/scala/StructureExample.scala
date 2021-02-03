@@ -61,4 +61,6 @@ object StructureExample extends App {
 
   def check2: Seq[schema.Message] = Await.result(db.run(messages.result), 1.seconds)
   println(check2.foreach(println))
+
+
 }
